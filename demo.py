@@ -2,7 +2,7 @@ from AIDetector_pytorch import Detector
 import imutils
 import cv2
 import argparse
-
+import time
 
 capture_width = 1280
 capture_height = 720
@@ -75,8 +75,9 @@ def main():
         _, im = cap.read()
         if im is None:
             break
-        
+        start = time.time()
         result = det.feedCap(im, func_status)
+        end = time.time() - start
         detect_num = result["faces"]
         result = result['frame']
         result = imutils.resize(result, height=500)
@@ -92,6 +93,8 @@ def main():
             text2 = "Warning,Below threshold"
         cv2.putText(result,text,size,cv2.FONT_HERSHEY_COMPLEX,0.7,color,1)
         cv2.putText(result,text2,(result.shape[1]-300,result.shape[0]-20),cv2.FONT_HERSHEY_COMPLEX,0.7,color,1)
+        fps_content = "fps:{}".format(1/end)
+        cv2.putText(result,fps_content,(20,30),cv2.FONT_HERSHEY_COMPLEX,0.7,(0,255,0),1)
         # if videoWriter is None:
         #     fourcc = cv2.VideoWriter_fourcc(
         #         'm', 'p', '4', 'v')  # opencv3.0

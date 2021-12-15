@@ -30,8 +30,8 @@ def plot_bboxes(image, bboxes, line_thickness=None):
         t_size = cv2.getTextSize(cls_id, 0, fontScale=tl / 3, thickness=tf)[0]
         c2 = c1[0] + t_size[0], c1[1] - t_size[1] - 3
         cv2.rectangle(image, c1, c2, color, -1, cv2.LINE_AA)  # filled
-        cv2.putText(image, '{} ID-{}'.format(cls_id, pos_id), (c1[0], c1[1] - 2), 0, tl / 3,
-                    [225, 255, 255], thickness=tf, lineType=cv2.LINE_AA)
+        # cv2.putText(image, '{} ID-{}'.format(cls_id, pos_id), (c1[0], c1[1] - 2), 0, tl / 3,
+                    # [225, 255, 255], thickness=tf, lineType=cv2.LINE_AA)
 
     return image
 

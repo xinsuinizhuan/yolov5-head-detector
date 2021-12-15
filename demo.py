@@ -80,15 +80,18 @@ def main():
         detect_num = result["faces"]
         result = result['frame']
         result = imutils.resize(result, height=500)
-        if detect_num>=args.thresh:
-            text = "detect num :{}".format(detect_num)
+        if detect_num<=args.thresh:
+            text = "detect num :{}/Max content num: {}".format(detect_num,args.thresh)
             color = (0,255,0)
-            size = (result.shape[1]-200,20)
+            size = (result.shape[1]-500,20)
+            text2 = ""
         else:
-            text = "detect num :{},warning,Below threshold".format(detect_num)
+            text = "detect num :{}/Max content num:{}".format(detect_num,args.thresh)
             color = (0,0,255)
-            size = (result.shape[1]-500,30)
+            size = (result.shape[1]-500,20)
+            text2 = "Warning,Below threshold"
         cv2.putText(result,text,size,cv2.FONT_HERSHEY_COMPLEX,0.7,color,1)
+        cv2.putText(result,text2,(result.shape[1]-300,result.shape[0]-20),cv2.FONT_HERSHEY_COMPLEX,0.7,color,1)
         # if videoWriter is None:
         #     fourcc = cv2.VideoWriter_fourcc(
         #         'm', 'p', '4', 'v')  # opencv3.0
